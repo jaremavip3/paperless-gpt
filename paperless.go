@@ -554,6 +554,10 @@ func (client *PaperlessClient) UpdateDocuments(ctx context.Context, documents []
 				finalTagNames = document.SuggestedTags
 			}
 		}
+		// Append any additional tags (e.g. AUTO_TAG_COMPLETE)
+		if len(document.AddTags) > 0 {
+			finalTagNames = append(finalTagNames, document.AddTags...)
+		}
 		var cleanedTags []string
 		for _, tagName := range finalTagNames {
 			isRemoved := false
